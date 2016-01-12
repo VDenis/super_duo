@@ -1,1 +1,2 @@
-# super_duo
+# Super duo
+## Android Developer Nanodegree
