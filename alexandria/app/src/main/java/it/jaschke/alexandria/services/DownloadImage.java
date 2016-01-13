@@ -18,6 +18,7 @@ public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
         this.bmImage = bmImage;
     }
 
+    @Override
     protected Bitmap doInBackground(String... urls) {
         String urlDisplay = urls[0];
         Bitmap bookCover = null;
@@ -31,6 +32,7 @@ public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
         return bookCover;
     }
 
+    @Override
     protected void onPostExecute(Bitmap result) {
         bmImage.setImageBitmap(result);
     }

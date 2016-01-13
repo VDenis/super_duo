@@ -86,6 +86,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
                 .commit();
     }
 
+    @Override
     public void setTitle(int titleId) {
         title = getString(titleId);
     }
