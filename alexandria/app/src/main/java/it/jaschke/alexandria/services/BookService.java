@@ -2,10 +2,8 @@ package it.jaschke.alexandria.services;
 
 import android.app.IntentService;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
@@ -23,6 +21,7 @@ import java.net.URL;
 
 import it.jaschke.alexandria.MainActivity;
 import it.jaschke.alexandria.R;
+import it.jaschke.alexandria.Utility;
 import it.jaschke.alexandria.data.AlexandriaContract;
 
 
@@ -93,7 +92,7 @@ public class BookService extends IntentService {
 
         bookEntry.close();
 
-        if(!isNetworkAvailable()){ //Aborting
+        if(!Utility.isNetworkAvailable(this)){ //Aborting
             Intent messageIntent = new Intent(MainActivity.MESSAGE_EVENT);
             messageIntent.putExtra(MainActivity.MESSAGE_KEY, getResources()
                     .getString(R.string.network_not_available));
@@ -241,8 +240,8 @@ public class BookService extends IntentService {
         }
     }
 
-    public boolean isNetworkAvailable() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+/*    public boolean isNetworkAvailable() {
+        ConnectivityManager cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null && cm.getActiveNetworkInfo().isConnectedOrConnecting();
-    }
+    }*/
  }

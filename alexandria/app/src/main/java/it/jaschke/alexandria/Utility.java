@@ -6,7 +6,7 @@ import android.net.ConnectivityManager;
 /**
  * Created by Denis on 13.01.2016.
  */
-public class Utilies {
+public class Utility {
 
     /**
      * Returns true if the network is available or about to become available.
