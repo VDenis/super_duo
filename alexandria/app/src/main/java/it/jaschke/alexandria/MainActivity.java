@@ -4,8 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
@@ -37,6 +40,12 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
     public static final String MESSAGE_EVENT = "MESSAGE_EVENT";
     public static final String MESSAGE_KEY = "MESSAGE_EXTRA";
 
+    // For Loaders
+    public static final int LOADER_LIST = 1;
+    public static final int LOADER_DETAILS = 2;
+
+    private static final String STATE_TITLE = "title_fragment";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +66,7 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         // Set up the drawer.
         navigationDrawerFragment.setUp(R.id.navigation_drawer,
-                    (DrawerLayout) findViewById(R.id.drawer_layout));
+                (DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
@@ -82,13 +91,44 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
         fragmentManager.beginTransaction()
                 .replace(R.id.container, nextFragment)
-                .addToBackStack((String) title)
+                // @den
+                // Note: You should not add transactions to the back stack when the transaction is
+                // for horizontal navigation (such as when switching tabs) or when modifying the
+                // content appearance (such as when adjusting filters).
+                //.addToBackStack((String) title)
                 .commit();
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        switch (navigationDrawerFragment.getSelectedPosition()){
+            case 0: //List of books
+                outState.putString(STATE_TITLE, getString(R.string.books));
+                break;
+            case 1: //Add/Scan book
+                outState.putString(STATE_TITLE, getString(R.string.scan));
+                break;
+            case 2: //About
+                outState.putString(STATE_TITLE, getString(R.string.about));
+                break;
+        }
+    }
+
+    @Override
+    public void onRestoreInstanceState(@NonNull Bundle outState) {
+        super.onRestoreInstanceState(outState);
+        title = outState.getString(STATE_TITLE);
+    }
+
+
+    @Override
     public void setTitle(int titleId) {
         title = getString(titleId);
+
+        if(getSupportActionBar() != null && getSupportActionBar().getTitle() != title) {
+            supportInvalidateOptionsMenu(); // calls onPrepareOptionsMenu()
+        }
     }
 
     public void restoreActionBar() {
@@ -173,10 +213,34 @@ public class MainActivity extends ActionBarActivity implements NavigationDrawerF
 
     @Override
     public void onBackPressed() {
+
+/*        if(navigationDrawerFragment.isDrawerOpen()){
+            navigationDrawerFragment.closeDrawer();
+            return;
+        }
         if(getSupportFragmentManager().getBackStackEntryCount()<2){
             finish();
         }
-        super.onBackPressed();
+        super.onBackPressed();*/
+
+        if(navigationDrawerFragment.isDrawerOpen()){
+            navigationDrawerFragment.closeDrawer();
+            return;
+        }
+
+        if(getSupportFragmentManager().getBackStackEntryCount() > 0){
+            getSupportFragmentManager().popBackStack();
+            return;
+        }
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        int position = Integer.parseInt(prefs.getString(getString(R.string.pref_start_fragment_key),getString(R.string.pref_start_fragment_default)));
+
+        if(position == navigationDrawerFragment.getSelectedPosition()){
+            super.onBackPressed();
+        }else{
+            navigationDrawerFragment.selectItem(position);
+        }
     }
 
 
