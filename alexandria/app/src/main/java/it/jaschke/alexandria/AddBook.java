@@ -224,6 +224,7 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
         if (result != null && result.getContents() != null) {
             ean.setText(result.getContents());
         } else{
+            // TODO: or R.string R.string.not_found
             Toast.makeText(getActivity(), getString(R.string.cancel_button), Toast.LENGTH_SHORT).show();
         }
     }
