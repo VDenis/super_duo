@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.TimeZone;
 import java.util.Vector;
 
+import barqsoft.footballscores.BuildConfig;
 import barqsoft.footballscores.R;
 import barqsoft.footballscores.data.DatabaseContract;
 
@@ -45,13 +46,13 @@ public class myFetchService extends IntentService {
 
     private void getData(String timeFrame) {
         //Creating fetch URL
-        final String BASE_URL = "http://api.football-data.org/alpha/fixtures"; //Base URL
+        final String BASE_URL = "http://api.football-data.org/alpha/fixtures?"; //Base URL
         final String QUERY_TIME_FRAME = "timeFrame"; //Time Frame parameter to determine days
         //final String QUERY_MATCH_DAY = "matchday";
 
         Uri fetch_build = Uri.parse(BASE_URL).buildUpon().
                 appendQueryParameter(QUERY_TIME_FRAME, timeFrame).build();
-        //Log.v(LOG_TAG, "The url we are looking at is: "+fetch_build.toString()); //log spam
+        Log.v(LOG_TAG, "The url we are looking at is: " + fetch_build.toString()); //log spam
         HttpURLConnection m_connection = null;
         BufferedReader reader = null;
         String JSON_data = null;
@@ -60,7 +61,8 @@ public class myFetchService extends IntentService {
             URL fetch = new URL(fetch_build.toString());
             m_connection = (HttpURLConnection) fetch.openConnection();
             m_connection.setRequestMethod("GET");
-            m_connection.addRequestProperty("X-Auth-Token", getString(R.string.api_key));
+            // @den add api token
+            m_connection.addRequestProperty("X-Auth-Token", BuildConfig.FOOTBALL_DATA_ORG_API_TOKEN);
             m_connection.connect();
 
             // Read the input stream into a String
@@ -143,7 +145,7 @@ public class myFetchService extends IntentService {
         final String LINKS = "_links";
         final String SOCCER_SEASON = "soccerseason";
         final String SELF = "self";
-        final String MATCH_DATE = "mDate";
+        final String MATCH_DATE = "date";
         final String HOME_TEAM = "homeTeamName";
         final String AWAY_TEAM = "awayTeamName";
         final String RESULT = "result";
@@ -192,28 +194,34 @@ public class myFetchService extends IntentService {
                         match_id = match_id + Integer.toString(i);
                     }
 
-                    mDate = match_data.getString(MATCH_DATE);
-                    mTime = mDate.substring(mDate.indexOf("T") + 1, mDate.indexOf("Z"));
-                    mDate = mDate.substring(0, mDate.indexOf("T"));
-                    SimpleDateFormat match_date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
-                    match_date.setTimeZone(TimeZone.getTimeZone("UTC"));
-                    try {
-                        Date parseddate = match_date.parse(mDate + mTime);
-                        SimpleDateFormat new_date = new SimpleDateFormat("yyyy-MM-dd:HH:mm");
-                        new_date.setTimeZone(TimeZone.getDefault());
-                        mDate = new_date.format(parseddate);
-                        mTime = mDate.substring(mDate.indexOf(":") + 1);
-                        mDate = mDate.substring(0, mDate.indexOf(":"));
+                    // @den sometimes mDate doen't exist
+                    //mDate = match_data.getString(MATCH_DATE);
+                    mDate = match_data.optString(MATCH_DATE);
+                    if (!mDate.isEmpty()) {
+                        mTime = mDate.substring(mDate.indexOf("T") + 1, mDate.indexOf("Z"));
+                        mDate = mDate.substring(0, mDate.indexOf("T"));
+                        SimpleDateFormat match_date = new SimpleDateFormat("yyyy-MM-ddHH:mm:ss");
+                        match_date.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        try {
+                            Date parseddate = match_date.parse(mDate + mTime);
+                            SimpleDateFormat new_date = new SimpleDateFormat("yyyy-MM-dd:HH:mm");
+                            new_date.setTimeZone(TimeZone.getDefault());
+                            mDate = new_date.format(parseddate);
+                            mTime = mDate.substring(mDate.indexOf(":") + 1);
+                            mDate = mDate.substring(0, mDate.indexOf(":"));
 
-                        if (!isReal) {
-                            //This if statement changes the dummy data's mDate to match our current mDate range.
-                            Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
-                            SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
-                            mDate = mformat.format(fragmentdate);
+                            if (!isReal) {
+                                //This if statement changes the dummy data's mDate to match our current mDate range.
+                                Date fragmentdate = new Date(System.currentTimeMillis() + ((i - 2) * 86400000));
+                                SimpleDateFormat mformat = new SimpleDateFormat("yyyy-MM-dd");
+                                mDate = mformat.format(fragmentdate);
+                            }
+                        } catch (Exception e) {
+                            Log.d(LOG_TAG, "error here!");
+                            Log.e(LOG_TAG, e.getMessage());
                         }
-                    } catch (Exception e) {
-                        Log.d(LOG_TAG, "error here!");
-                        Log.e(LOG_TAG, e.getMessage());
+                    } else {
+                        mTime = "";
                     }
                     Home = match_data.getString(HOME_TEAM);
                     Away = match_data.getString(AWAY_TEAM);

@@ -10,7 +10,7 @@ import barqsoft.footballscores.data.DatabaseContract.ScoresTable;
  * Created by yehya khaled on 2/25/2015.
  */
 public class ScoresDBHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "Scores.db";
+    public static final String DATABASE_NAME = "football_scores.db";
     private static final int DATABASE_VERSION = 2;
 
     public ScoresDBHelper(Context context) {
@@ -21,8 +21,11 @@ public class ScoresDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         final String CreateScoresTable = "CREATE TABLE " + DatabaseContract.SCORES_TABLE + " ("
                 + ScoresTable._ID + " INTEGER PRIMARY KEY,"
+                // Date and Time can be null
                 + DatabaseContract.ScoresTable.DATE_COL + " TEXT NOT NULL,"
+                //+ DatabaseContract.ScoresTable.DATE_COL + " TEXT,"
                 + ScoresTable.TIME_COL + " INTEGER NOT NULL,"
+                //+ ScoresTable.TIME_COL + " INTEGER,"
                 + DatabaseContract.ScoresTable.HOME_COL + " TEXT NOT NULL,"
                 + ScoresTable.AWAY_COL + " TEXT NOT NULL,"
                 + DatabaseContract.ScoresTable.LEAGUE_COL + " INTEGER NOT NULL,"

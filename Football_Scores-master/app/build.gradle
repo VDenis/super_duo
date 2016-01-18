@@ -17,9 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    buildTypes.each {
+        it.buildConfigField 'String', 'FOOTBALL_DATA_ORG_API_TOKEN', MyFootballDataOrgApiToken
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+    // Stetho - debug database
+    compile 'com.facebook.stetho:stetho:1.2.0'
 }
