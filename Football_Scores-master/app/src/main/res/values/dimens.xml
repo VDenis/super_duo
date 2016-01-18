@@ -13,5 +13,5 @@
     <dimen name="widget_future_default_height">180dp</dimen>
     <dimen name="widget_future_min_resize_width">220dp</dimen>
     <dimen name="widget_future_min_resize_height">100dp</dimen>
-<!--    <dimen name="widget_margin">8dp</dimen>-->
+    <!--    <dimen name="widget_margin">8dp</dimen>-->
 </resources>

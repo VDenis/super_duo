@@ -158,6 +158,8 @@ public class myFetchService extends IntentService {
         final String AWAY_GOALS = "goalsAwayTeam";
         final String MATCH_DAY = "matchday";
 
+        final String HTML_LINK = "href";
+
         //Match data
         String League = null;
         String mDate = null;
@@ -180,7 +182,7 @@ public class myFetchService extends IntentService {
 
                 JSONObject match_data = matches.getJSONObject(i);
                 League = match_data.getJSONObject(LINKS).getJSONObject(SOCCER_SEASON).
-                        getString("href");
+                        getString(HTML_LINK);
                 League = League.replace(SEASON_LINK, "");
                 //This if statement controls which leagues we're interested in the data from.
                 //add leagues here in order to have them be added to the DB.
@@ -193,7 +195,7 @@ public class myFetchService extends IntentService {
                         //League.equals(CHAMPIONS_LEAGUE) ||
                         League.equals(PRIMERA_DIVISION)) {
                     match_id = match_data.getJSONObject(LINKS).getJSONObject(SELF).
-                            getString("href");
+                            getString(HTML_LINK);
                     match_id = match_id.replace(MATCH_LINK, "");
                     if (!isReal) {
                         //This if statement changes the match ID of the dummy data so that it all goes into the database
