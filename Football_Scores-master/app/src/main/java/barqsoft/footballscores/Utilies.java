@@ -4,11 +4,13 @@ package barqsoft.footballscores;
  * Created by yehya khaled on 3/3/2015.
  */
 public class Utilies {
-    public static final int SERIE_A = 357;
-    public static final int PREMIER_LEGAUE = 354;
+    // @den update codes
+    public static final int SERIE_A = 401; //357;
+    public static final int PREMIER_LEGAUE = 398; //354;
     public static final int CHAMPIONS_LEAGUE = 362;
-    public static final int PRIMERA_DIVISION = 358;
-    public static final int BUNDESLIGA = 351;
+    public static final int PRIMERA_DIVISION = 399; //358;
+    public static final int BUNDESLIGA1 = 394; //351;
+    public static final int BUNDESLIGA2 = 395; //351;
 
     public static String getLeague(int league_num) {
         switch (league_num) {
@@ -20,8 +22,10 @@ public class Utilies {
                 return "UEFA Champions League";
             case PRIMERA_DIVISION:
                 return "Primera Division";
-            case BUNDESLIGA:
-                return "Bundesliga";
+            case BUNDESLIGA1:
+                return "1. Bundesliga";
+            case BUNDESLIGA2:
+                return "2. Bundesliga";
             default:
                 return "Not known League Please report";
         }

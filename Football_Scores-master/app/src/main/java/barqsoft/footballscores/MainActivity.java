@@ -23,7 +23,7 @@ public class MainActivity extends ActionBarActivity {
         Stetho.initializeWithDefaults(this);
 
         setContentView(R.layout.activity_main);
-        Log.d(LOG_TAG, "Reached MainActivity onCreate");
+        Log.d(LOG_TAG, "onCreate");
         if (savedInstanceState == null) {
             mMyMain = new PagerFragment();
             getSupportFragmentManager().beginTransaction()

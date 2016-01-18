@@ -24,13 +24,14 @@ import java.util.Vector;
 
 import barqsoft.footballscores.BuildConfig;
 import barqsoft.footballscores.R;
+import barqsoft.footballscores.Utilies;
 import barqsoft.footballscores.data.DatabaseContract;
 
 /**
  * Created by yehya khaled on 3/2/2015.
  */
 public class myFetchService extends IntentService {
-    public static final String LOG_TAG = "myFetchService";
+    public static final String LOG_TAG = myFetchService.class.getSimpleName();
 
     public static final String ACTION_DATA_UPDATED = "barqsoft.footballscores.ACTION_DATA_UPDATED";
 
@@ -128,17 +129,19 @@ public class myFetchService extends IntentService {
         //JSON data
         // This set of league codes is for the 2015/2016 season. In fall of 2016, they will need to
         // be updated. Feel free to use the codes
-        final String BUNDESLIGA1 = "394";
-        final String BUNDESLIGA2 = "395";
-        final String LIGUE1 = "396";
-        final String LIGUE2 = "397";
-        final String PREMIER_LEAGUE = "398";
-        final String PRIMERA_DIVISION = "399";
-        final String SEGUNDA_DIVISION = "400";
-        final String SERIE_A = "401";
-        final String PRIMERA_LIGA = "402";
-        final String Bundesliga3 = "403";
-        final String EREDIVISIE = "404";
+        //final String BUNDESLIGA1 = String.valueOf(Utilies.SERIE_A); //"394";
+        final String BUNDESLIGA1 = String.valueOf(Utilies.BUNDESLIGA1); //"394";
+        final String BUNDESLIGA2 = String.valueOf(Utilies.BUNDESLIGA2); //"395";
+        // old final String CHAMPIONS_LEAGUE = String.valueOf(Utilies.CHAMPIONS_LEAGUE); //"395";
+        //final String LIGUE1 = "396";
+        //final String LIGUE2 = "397";
+        final String PREMIER_LEAGUE = String.valueOf(Utilies.PREMIER_LEGAUE); //"398";
+        final String PRIMERA_DIVISION = String.valueOf(Utilies.PRIMERA_DIVISION); //"399";
+        //final String SEGUNDA_DIVISION = "400";
+        final String SERIE_A = String.valueOf(Utilies.SERIE_A); //"401";
+        //final String PRIMERA_LIGA = "402";
+        //final String Bundesliga3 = "403";
+        //final String EREDIVISIE = "404";
 
 
         final String SEASON_LINK = "http://api.football-data.org/alpha/soccerseasons/";
@@ -187,6 +190,7 @@ public class myFetchService extends IntentService {
                         League.equals(SERIE_A) ||
                         League.equals(BUNDESLIGA1) ||
                         League.equals(BUNDESLIGA2) ||
+                        //League.equals(CHAMPIONS_LEAGUE) ||
                         League.equals(PRIMERA_DIVISION)) {
                     match_id = match_data.getJSONObject(LINKS).getJSONObject(SELF).
                             getString("href");
