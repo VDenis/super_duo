@@ -37,6 +37,9 @@
     <string name="a11n_home_crest">Home team crest</string>
     <string name="a11n_away_crest">Away team crest</string>
     <string name="a11n_share_button">Share the match</string>
+    <string name="a11n_match_tine">The time a football match</string>
+    <string name="a11n_match_score">The match result</string>
+
 
     <!-- Widget -->
     <string name="widget_label">Football Matches Today</string>
