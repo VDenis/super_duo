@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Football Scores</string>
+    <string name="a11n_home_crest">Главная команда</string>
+    <string name="a11n_away_crest">Команда гостей</string>
+    <string name="a11n_match_score">Результат матча</string>
+    <string name="a11n_match_tine">Время футбольного матча</string>
+    <string name="a11n_share_button">Поделиться игрой</string>
+    <string name="about">О приложении</string>
+    <string name="action_settings">Настройки</string>
+    <string name="bundesliga">Бундеслига</string>
+    <string name="champions_league">Лига чемпионов УЕФА</string>
+    <string name="final_text">Окончательный</string>
+    <string name="first_knockout_round">Первый раунд</string>
+    <string name="group_stage_text">Групповой этап</string>
+    <string name="matchday_text">День матча</string>
+    <string name="premierleague">Премьер Лига</string>
+    <string name="primeradivison">Высший дивизион</string>
+    <string name="quarter_final">Заключительная четверть</string>
+    <string name="semi_final">Полуфинал</string>
+    <string name="seriaa">Серия А</string>
+    <string name="share_text">Поделиться</string>
+    <string name="test_text">Тест</string>
+    <string name="today">Cегодня</string>
+    <string name="tomorrow">Завтра</string>
+    <string name="widget_empty">Нет планируемых матчей</string>
+    <string name="widget_label">Футбольные Матчи на сегодня</string>
+    <string name="yesterday">Вчера</string>
+</resources>

@@ -36,6 +36,13 @@ public class ScoresWidgetRemoteViewsService extends RemoteViewsService {
 
             @Override
             public void onDataSetChanged() {
+                if (data != null) {
+                    data.close();
+                }
+                // This method is called by the app hosting the widget (e.g., the launcher)
+                // However, our ContentProvider is not exported so it doesn't have access to the
+                // data. Therefore we need to clear (and finally restore) the calling identity so
+                // that calls use our process and permission
                 final long identityToken = Binder.clearCallingIdentity();
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
