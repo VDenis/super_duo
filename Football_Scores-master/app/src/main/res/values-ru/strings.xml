@@ -8,7 +8,8 @@
     <string name="a11n_share_button">Поделиться игрой</string>
     <string name="about">О приложении</string>
     <string name="action_settings">Настройки</string>
-    <string name="bundesliga">Бундеслига</string>
+    <string name="bundesliga1">1. Бундеслига</string>
+    <string name="bundesliga2">2. Бундеслига</string>
     <string name="champions_league">Лига чемпионов УЕФА</string>
     <string name="final_text">Окончательный</string>
     <string name="first_knockout_round">Первый раунд</string>
@@ -26,4 +27,5 @@
     <string name="widget_empty">Нет планируемых матчей</string>
     <string name="widget_label">Футбольные Матчи на сегодня</string>
     <string name="yesterday">Вчера</string>
+    <string name="not_known_league">Неизвестная Лига Пожалуйста, сообщите</string>
 </resources>

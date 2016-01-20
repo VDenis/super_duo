@@ -49,12 +49,12 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
             setFragmentDate(arguments.getString(MainScreenFragment.MAIN_SCREEN_DATE));
         }
 
-         UpdateScores();
+        UpdateScores();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
         mAdapter = new ScoresAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
-         getLoaderManager().initLoader(SCORES_LOADER, null, this);
+        getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.mDetailMatchId = MainActivity.SELECTED_MATCH_ID;
         score_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

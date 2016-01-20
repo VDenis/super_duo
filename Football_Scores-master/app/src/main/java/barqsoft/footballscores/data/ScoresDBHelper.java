@@ -37,7 +37,8 @@ public class ScoresDBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        //Remove old values when upgrading.
+        //@den Remove old values when upgrading.
         db.execSQL("DROP TABLE IF EXISTS " + DatabaseContract.SCORES_TABLE);
+        onCreate(db);
     }
 }

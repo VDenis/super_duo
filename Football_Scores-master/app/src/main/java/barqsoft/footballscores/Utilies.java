@@ -1,10 +1,13 @@
 package barqsoft.footballscores;
 
+import android.content.Context;
+
 /**
  * Created by yehya khaled on 3/3/2015.
  */
 public class Utilies {
     // @den update codes
+    // codes need to be updated every year, better use api for retrieve actual team codes from server
     public static final int SERIE_A = 401; //357;
     public static final int PREMIER_LEGAUE = 398; //354;
     public static final int CHAMPIONS_LEAGUE = 362;
@@ -12,40 +15,53 @@ public class Utilies {
     public static final int BUNDESLIGA1 = 394; //351;
     public static final int BUNDESLIGA2 = 395; //351;
 
-    public static String getLeague(int league_num) {
+    public static String getLeague(Context contex, int league_num) {
         switch (league_num) {
             case SERIE_A:
-                return "Seria A";
+                //return "Seria A";
+                return contex.getString(R.string.seriaa);
             case PREMIER_LEGAUE:
-                return "Premier League";
+                //"Premier League";
+                return contex.getString(R.string.premierleague);
             case CHAMPIONS_LEAGUE:
-                return "UEFA Champions League";
+                //return "UEFA Champions League";
+                return contex.getString(R.string.champions_league);
             case PRIMERA_DIVISION:
-                return "Primera Division";
+                //return "Primera Division";
+                return contex.getString(R.string.primeradivison);
             case BUNDESLIGA1:
-                return "1. Bundesliga";
+                //return "1. Bundesliga";
+                return contex.getString(R.string.bundesliga1);
             case BUNDESLIGA2:
-                return "2. Bundesliga";
+                //return "2. Bundesliga";
+                return contex.getString(R.string.bundesliga2);
             default:
-                return "Not known League Please report";
+                //return "Not known League Please report";
+                return contex.getString(R.string.not_known_league);
         }
     }
 
-    public static String getMatchDay(int match_day, int league_num) {
+    public static String getMatchDay(Context context, int match_day, int league_num) {
         if (league_num == CHAMPIONS_LEAGUE) {
             if (match_day <= 6) {
-                return "Group Stages, Matchday : 6";
+                //return "Group Stages, Matchday : 6";
+                return context.getString(R.string.group_stage_text) + ", " + context.getString(R.string.matchday_text) + ": 6";
             } else if (match_day == 7 || match_day == 8) {
-                return "First Knockout round";
+                //return "First Knockout round";
+                return context.getString(R.string.first_knockout_round);
             } else if (match_day == 9 || match_day == 10) {
-                return "QuarterFinal";
+                //return "QuarterFinal";
+                return context.getString(R.string.quarter_final);
             } else if (match_day == 11 || match_day == 12) {
-                return "SemiFinal";
+                //return "SemiFinal";
+                return context.getString(R.string.semi_final);
             } else {
-                return "Final";
+                //return "Final";
+                return context.getString(R.string.final_text);
             }
         } else {
-            return "Matchday : " + String.valueOf(match_day);
+            //return "Matchday : " + String.valueOf(match_day);
+            return context.getString(R.string.matchday_text) + ": " + String.valueOf(match_day);
         }
     }
 

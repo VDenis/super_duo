@@ -41,13 +41,13 @@ public class ScoresWidgetProvider extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        /** @fnp on widget update every 24h, we call our fetchData service */
-        if(AppWidgetManager.ACTION_APPWIDGET_UPDATE	.equals(intent.getAction())){
+        /** @den on widget update every 24h, we call our fetchData service */
+        if (AppWidgetManager.ACTION_APPWIDGET_UPDATE.equals(intent.getAction())) {
             Intent serviceStart = new Intent(context, myFetchService.class);
             context.startService(serviceStart);
         }
         /**
-         * @fnp our fetchData service will send a broadcast every time it updates data so we can
+         * @den our fetchData service will send a broadcast every time it updates data so we can
          * also update this widget
          */
         else if (myFetchService.ACTION_DATA_UPDATED.equals(intent.getAction())) {

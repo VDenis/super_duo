@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- translate app to Russia language-->
     <string name="app_name">Football Scores</string>
     <string name="hello_world" translatable="false">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -9,10 +9,12 @@
     <string name="yesterday">Yesterday</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="champions_league">UEFA Champions League</string>
-    <string name="bundesliga">Bundesliga</string>
+    <string name="bundesliga1">1. Bundesliga</string>
+    <string name="bundesliga2">2. Bundesliga</string>
     <string name="premierleague">Premier League</string>
     <string name="primeradivison">Primera Division</string>
     <string name="seriaa">Serie A</string>
+    <string name="not_known_league">Not known League Please report</string>
     <string name="matchday_text">Match day</string>
     <string name="group_stage_text">Group stages</string>
     <string name="first_knockout_round">First knockout round</string>
@@ -33,7 +35,7 @@
         During the off season, fake data will be added to the app.
     </string>
 
-    <!-- a11n -->
+    <!-- a11n. @den add a11n-->
     <string name="a11n_home_crest">Home team crest</string>
     <string name="a11n_away_crest">Away team crest</string>
     <string name="a11n_share_button">Share the match</string>

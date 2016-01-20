@@ -64,7 +64,7 @@ public class myFetchService extends IntentService {
             URL fetch = new URL(fetch_build.toString());
             m_connection = (HttpURLConnection) fetch.openConnection();
             m_connection.setRequestMethod("GET");
-            // @den add api token
+            // @den add and use api token
             m_connection.addRequestProperty("X-Auth-Token", BuildConfig.FOOTBALL_DATA_ORG_API_TOKEN);
             m_connection.connect();
 
@@ -129,20 +129,11 @@ public class myFetchService extends IntentService {
         //JSON data
         // This set of league codes is for the 2015/2016 season. In fall of 2016, they will need to
         // be updated. Feel free to use the codes
-        //final String BUNDESLIGA1 = String.valueOf(Utilies.SERIE_A); //"394";
         final String BUNDESLIGA1 = String.valueOf(Utilies.BUNDESLIGA1); //"394";
         final String BUNDESLIGA2 = String.valueOf(Utilies.BUNDESLIGA2); //"395";
-        // old final String CHAMPIONS_LEAGUE = String.valueOf(Utilies.CHAMPIONS_LEAGUE); //"395";
-        //final String LIGUE1 = "396";
-        //final String LIGUE2 = "397";
         final String PREMIER_LEAGUE = String.valueOf(Utilies.PREMIER_LEGAUE); //"398";
         final String PRIMERA_DIVISION = String.valueOf(Utilies.PRIMERA_DIVISION); //"399";
-        //final String SEGUNDA_DIVISION = "400";
         final String SERIE_A = String.valueOf(Utilies.SERIE_A); //"401";
-        //final String PRIMERA_LIGA = "402";
-        //final String Bundesliga3 = "403";
-        //final String EREDIVISIE = "404";
-
 
         final String SEASON_LINK = "http://api.football-data.org/alpha/soccerseasons/";
         final String MATCH_LINK = "http://api.football-data.org/alpha/fixtures/";
