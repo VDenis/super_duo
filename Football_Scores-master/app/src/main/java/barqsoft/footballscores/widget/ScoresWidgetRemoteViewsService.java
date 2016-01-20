@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Binder;
 import android.os.Build;
+import android.util.Log;
 import android.widget.AdapterView;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
@@ -23,6 +24,8 @@ import barqsoft.footballscores.data.DatabaseContract;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ScoresWidgetRemoteViewsService extends RemoteViewsService {
+
+    private final String LOG_TAG = ScoresWidgetRemoteViewsService.class.getSimpleName();
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {
@@ -47,6 +50,7 @@ public class ScoresWidgetRemoteViewsService extends RemoteViewsService {
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
                 String myDate = dateFormat.format(new Date(System.currentTimeMillis()));
+                Log.v(LOG_TAG, myDate);
                 data = getContentResolver().query(DatabaseContract.ScoresTable.buildScoreWithDate()
                         , null, null, new String[]{myDate}, null);
 
