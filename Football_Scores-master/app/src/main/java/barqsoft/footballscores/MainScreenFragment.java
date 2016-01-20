@@ -25,6 +25,9 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     private String[] mFragmentDate = new String[1];
     private int mLastSelectedItem = -1;
 
+    // set arguments to the fragment
+    static final String MAIN_SCREEN_DATE = "DATE";
+
     public MainScreenFragment() {
     }
 
@@ -40,12 +43,18 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
-        // UpdateScores();
+        //@den fix app crash after change rtl <-> ltl, null date. Save date with fragments arguments
+        Bundle arguments = getArguments();
+        if (arguments != null) {
+            setFragmentDate(arguments.getString(MainScreenFragment.MAIN_SCREEN_DATE));
+        }
+
+         UpdateScores();
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         final ListView score_list = (ListView) rootView.findViewById(R.id.scores_list);
         mAdapter = new ScoresAdapter(getActivity(), null, 0);
         score_list.setAdapter(mAdapter);
-        // getLoaderManager().initLoader(SCORES_LOADER, null, this);
+         getLoaderManager().initLoader(SCORES_LOADER, null, this);
         mAdapter.mDetailMatchId = MainActivity.SELECTED_MATCH_ID;
         score_list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,25 +68,25 @@ public class MainScreenFragment extends Fragment implements LoaderManager.Loader
         return rootView;
     }
 
-    // @den fix app crash after change rtl <-> ltl, null date. Save date with onSaveInstanceState
+/*    // @den fix app crash after change rtl <-> ltl, null date. Save date with onSaveInstanceState
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putString("date", mFragmentDate[0]);
         super.onSaveInstanceState(outState);
-    }
+    }*/
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        // read date from after onSaveInstanceState
+/*        // read date from after onSaveInstanceState
         if (savedInstanceState != null) {
             String savedDate = savedInstanceState.getString("date");
             setFragmentDate(savedDate);
-        }
+        }*/
 
-        UpdateScores();
+        //UpdateScores();
 
-        getActivity().supportPostponeEnterTransition();
-        getLoaderManager().initLoader(SCORES_LOADER, null, this);
+        //getActivity().supportPostponeEnterTransition();
+        //getLoaderManager().initLoader(SCORES_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
 
