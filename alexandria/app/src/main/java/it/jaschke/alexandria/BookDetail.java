@@ -8,6 +8,7 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -24,6 +25,8 @@ import it.jaschke.alexandria.services.DownloadImage;
 
 
 public class BookDetail extends Fragment implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private final String LOG_TAG = BookDetail.class.getSimpleName();
 
     public static final String EAN_KEY = "EAN";
     private View mRootView;
@@ -49,6 +52,8 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
             mEan = arguments.getString(BookDetail.EAN_KEY);
             getLoaderManager().restartLoader(MainActivity.LOADER_DETAILS, null, this);
         }
+
+        Log.v(LOG_TAG, "onCreateView- " + mEan);
 
         mRootView = inflater.inflate(R.layout.fragment_full_book, container, false);
         mRootView.findViewById(R.id.delete_button).setOnClickListener(new View.OnClickListener() {
@@ -148,7 +153,8 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
 
     @Override
     public void onPause() {
-        super.onDestroyView();
+        super.onPause();
+        Log.v(LOG_TAG, "onPause");
         if (MainActivity.IS_TABLET && mRootView.findViewById(R.id.right_container) == null) {
             getActivity().getSupportFragmentManager().popBackStack();
         }

@@ -15,6 +15,7 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -88,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
                 nextFragment = new About();
                 break;
 
+        }
+
+        // if we are on a tablet in landscape mode pop the book detail fragment (in case we have one)
+        if(findViewById(R.id.right_container) != null) {
+            fragmentManager.popBackStack(getString(R.string.detail), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
         fragmentManager.beginTransaction()
@@ -186,9 +192,11 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         if (findViewById(R.id.right_container) != null) {
             id = R.id.right_container;
         }
+
+        Log.v(MainActivity.class.getSimpleName(), "Item selected + " + ean);
         getSupportFragmentManager().beginTransaction()
                 .replace(id, fragment)
-                .addToBackStack("Book Detail")
+                .addToBackStack(getString(R.string.detail))
                 .commit();
 
     }

@@ -7,8 +7,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.facebook.stetho.Stetho;
-
 public class MainActivity extends ActionBarActivity {
     public static int SELECTED_MATCH_ID;
     public static int CURRENT_FRAGMENT = 2;
@@ -20,7 +18,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
         setContentView(R.layout.activity_main);
         Log.d(LOG_TAG, "onCreate");
