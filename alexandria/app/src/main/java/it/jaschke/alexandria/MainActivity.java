@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         }
 
         // if we are on a tablet in landscape mode pop the book detail fragment (in case we have one)
-        if(findViewById(R.id.right_container) != null) {
+        if (findViewById(R.id.right_container) != null) {
             fragmentManager.popBackStack(getString(R.string.detail), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
 
