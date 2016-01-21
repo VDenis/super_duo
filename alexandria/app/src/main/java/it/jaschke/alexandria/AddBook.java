@@ -99,18 +99,13 @@ public class AddBook extends Fragment implements LoaderManager.LoaderCallbacks<C
                 //when you're done, remove the toast below.
                 Context context = getActivity();
                 // CharSequence text = "This button should let you scan a book for its barcode!";
-                CharSequence text = "Scan";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
 
                 // @den scan ISBN code
                 if (v.getId() == R.id.scan_button) {
                     IntentIntegrator.forSupportFragment(AddBook.this)
                             .setCaptureActivity(CaptureISBNActivity.class)
                             .setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES)
-                            .setPrompt("Please scan book ISBN barcode")
+                            .setPrompt(context.getString(R.string.scanning))
                             .setOrientationLocked(false)
                             .initiateScan();
                 }
