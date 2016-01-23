@@ -155,8 +155,8 @@ public class BookDetail extends Fragment implements LoaderManager.LoaderCallback
     public void onPause() {
         super.onPause();
         Log.v(LOG_TAG, "onPause");
-        if (MainActivity.IS_TABLET && mRootView.findViewById(R.id.right_container) == null) {
-            getActivity().getSupportFragmentManager().popBackStack();
-        }
+/*        if (MainActivity.IS_TABLET && mRootView.findViewById(R.id.right_container) == null) {
+            getActivity().getSupportFragmentManager().popBackStack(getString(R.string.detail), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        }*/
     }
 }

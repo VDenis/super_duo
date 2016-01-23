@@ -25,7 +25,11 @@ import it.jaschke.alexandria.api.Callback;
 
 
 //public class MainActivity extends ActionBarActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Callback {
-public class MainActivity extends AppCompatActivity implements NavigationDrawerFragment.NavigationDrawerCallbacks, Callback {
+public class MainActivity extends AppCompatActivity implements
+        NavigationDrawerFragment.NavigationDrawerCallbacks, Callback,
+        FragmentManager.OnBackStackChangedListener {
+
+    private static final String LOG_TAG = MainActivity.class.getSimpleName();
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -57,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         } else {
             setContentView(R.layout.activity_main);
         }
+
+        //back stack
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.addOnBackStackChangedListener(this);
 
         mMessageReciever = new MessageReciever();
         IntentFilter filter = new IntentFilter(MESSAGE_EVENT);
@@ -193,6 +201,10 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
             id = R.id.right_container;
         }
 
+        // @den we need pop from back stack previous Fragment
+        // because put new one with the same TAG
+        getSupportFragmentManager().popBackStack(getString(R.string.detail), FragmentManager.POP_BACK_STACK_INCLUSIVE);
+
         Log.v(MainActivity.class.getSimpleName(), "Item selected + " + ean);
         getSupportFragmentManager().beginTransaction()
                 .replace(id, fragment)
@@ -248,5 +260,29 @@ public class MainActivity extends AppCompatActivity implements NavigationDrawerF
         }
     }
 
+    public void showMsg(String msg) {
+        Log.i(LOG_TAG, msg);
+        Toast t = Toast.makeText(this, msg, Toast.LENGTH_LONG);
+        t.show();
+    }
 
+    public static void LogBackStackEntry(FragmentManager.BackStackEntry entry) {
+        if (entry != null) {
+            Log.d(LOG_TAG, "BackStackEntry Name :" + entry.getName());
+        }
+        else {
+            Log.d(LOG_TAG, "BackStackEntry Name:<NULL>");
+        }
+    }
+
+    @Override
+    public void onBackStackChanged() {
+        showMsg("Backstack Changed");
+        Log.d(LOG_TAG, "Backstack contents starting with index 0");
+        FragmentManager fm = getSupportFragmentManager();
+        int backStackCount = fm.getBackStackEntryCount();
+        for (int i = 0; i < backStackCount; i++) {
+            LogBackStackEntry(fm.getBackStackEntryAt(i));
+        }
+    }
 }
